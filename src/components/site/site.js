@@ -1,8 +1,12 @@
 // Dependencies
-import React, { useCallback } from "react";
+import React, {useCallback, useEffect} from "react";
 
 // Hooks
+import {useGlobalState} from "../../providers/state";
 import { useHistory } from "react-router-dom/umd/react-router-dom";
+
+// Actions
+import {myFirstActionCreator, mySecondActionCreator, tryChangeRouteActionCreator} from "../../redux/action-creators";
 
 // Styles
 import { fade, makeStyles } from "@material-ui/core/styles";
@@ -33,6 +37,7 @@ const useStyles = makeStyles(theme => ({
 // Component
 const Site = () => {
   const classes = useStyles();
+  const [state, dispatch] = useGlobalState();
   const history = useHistory();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -44,6 +49,12 @@ const Site = () => {
     },
     [history]
   );
+  const syncStateToRoute = useEffect(() => {
+    history.push(state.route);
+  }, [state.route]);
+  const handleAnotherClick = e => {
+    dispatch(myFirstActionCreator({age: 5, confirmationAction: mySecondActionCreator({name: 'Hello'})}));
+  };
   return (
     <>
       <Header onDrawerToggle={handleDrawerToggle} />
@@ -54,10 +65,10 @@ const Site = () => {
         <Button variant="contained" startIcon={<DeleteIcon />}>
           Default
         </Button>
-        <Button variant="outlined" color="primary" onClick={handleClick}>
+        <Button variant="outlined" color="primary" onClick={e => dispatch(tryChangeRouteActionCreator({route: 'about'}))}>
           Primary
         </Button>
-        <Button variant="contained" color="secondary">
+        <Button variant="contained" color="secondary" onClick={handleAnotherClick}>
           Secondary
         </Button>{" "}
         <Switch>
@@ -74,9 +85,7 @@ const Site = () => {
       </main>
       <aside>
         <Typography>
-          <Box fontWeight="fontWeightLight" m={1}>
-            Light
-          </Box>
+          Something on the side
         </Typography>
       </aside>
     </>

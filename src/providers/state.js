@@ -9,6 +9,11 @@ import React, { createContext, useContext, useEffect, useReducer } from "react";
 import reduce from "ramda/es/reduce";
 
 /**
+ * Reducer Factories
+ */
+import reducerFactories from "../redux/reducer-factories/index";
+
+/**
  * Export the StateProvider to be used in the <Root> component.
  */
 export let StateProvider;
@@ -55,33 +60,46 @@ const withReduxDevToolsExtension = () => {
    */
   const reducer = (state, action) => {
     let newState = state;
-    let type = "action";
-    if (typeof action === "function") {
-      newState = action(state);
-    } else if (action != null && typeof action === "object") {
-      if (action.hasOwnProperty("type")) {
-        type = action.type;
-        if (action.hasOwnProperty("reducer")) {
-          newState = action.reducer(state);
-        } else if (action.hasOwnProperty("payload")) {
-          newState = reduce(
-            (a, c) => c(a, action),
-            state,
-            globalLegacyReducers
-          );
-        } else {
-          console.error("Reducer Action Error", action);
-        }
-      } else {
-        console.error("Reducer Action Error", action);
+    if(reducerFactories.hasOwnProperty(action.type)) {
+      try {
+        newState = reducerFactories[action.type](action.payload)(state);
+      } catch (ex) {
+        console.error(`Exception in action [${action.type}]`, ex);
       }
     } else {
-      console.error("Reducer Action Error", action);
+      console.error(`Unknown action [${action.type}]`);
     }
-    if (type !== "ReduxDevToolsExtension") {
-      devTools.send(type, newState);
-    }
+    devTools.send(action, newState);
     return newState;
+
+    // let newState = state;
+    // let type = "action";
+    // if (typeof action === "function") {
+    //   newState = action(state);
+    // } else if (action != null && typeof action === "object") {
+    //   if (action.hasOwnProperty("type")) {
+    //     type = action.type;
+    //     if (action.hasOwnProperty("reducer")) {
+    //       newState = action.reducer(state);
+    //     } else if (action.hasOwnProperty("payload")) {
+    //       newState = reduce(
+    //         (a, c) => c(a, action),
+    //         state,
+    //         globalLegacyReducers
+    //       );
+    //     } else {
+    //       console.error("Reducer Action Error", action);
+    //     }
+    //   } else {
+    //     console.error("Reducer Action Error", action);
+    //   }
+    // } else {
+    //   console.error("Reducer Action Error", action);
+    // }
+    // if (type !== "ReduxDevToolsExtension") {
+    //   devTools.send(type, newState);
+    // }
+    // return newState;
   };
 
   /**
@@ -94,6 +112,7 @@ const withReduxDevToolsExtension = () => {
     useEffect(() => {
       devTools.init(state);
       let unsubscribe = devTools.subscribe(message => {
+        console.log("-----------", message);
         if (message.type === "DISPATCH" && message.state) {
           dispatch({
             type: "ReduxDevToolsExtension",

@@ -29,7 +29,7 @@ const Root = () => {
         locale={navigator.language}
         onError={() => {}}
       >
-        <StateProvider initialState={{}}>
+        <StateProvider initialState={{bla: 'blub'}}>
           <BrowserRouter>
             <CssBaseline />
             <Site />
