@@ -1,13 +1,14 @@
-// IE 11 Polyfills
-import 'react-app-polyfill/ie11';
-import 'react-app-polyfill/stable';
-
-// Dependencies
+/**
+ * Dependencies
+ */
 import React from "react";
 import ReactDOM from "react-dom";
-
-// Components
+/**
+ * Components
+ */
 import Root from "./components/root/root";
 
-// Entry point
+/**
+ * Entry point
+ */
 ReactDOM.render(<Root />, document.getElementById("root"));

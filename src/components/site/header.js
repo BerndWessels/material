@@ -190,7 +190,7 @@ const Header = ({onDrawerToggle}) => {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Search… if you like"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput

@@ -1,24 +1,36 @@
-// Dependencies
+/**
+ * Dependencies
+ */
 import React, { useMemo } from "react";
 import { hot } from "react-hot-loader/root";
-
-// Providers
+/**
+ * Redux
+ */
+import reducers from "../../redux/reducers";
+/**
+ * Providers
+ */
 import { BrowserRouter } from "react-router-dom/umd/react-router-dom";
 import { IntlProvider } from "react-intl";
 import { ThemeProvider } from "@material-ui/core/styles";
-import { StateProvider } from "../../providers/state";
-
-// Hooks
+import { ReduxProvider } from "../../providers/redux";
+/**
+ * Hooks
+ */
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-
-// Theme
+/**
+ * Theme
+ */
 import createTheme from "../../theme/theme";
-
-// Components
+/**
+ * Components
+ */
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Site from "../site/site";
 
-// Component
+/**
+ * Component
+ */
 const Root = () => {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const theme = useMemo(() => createTheme(prefersDarkMode), [prefersDarkMode]);
@@ -29,12 +41,12 @@ const Root = () => {
         locale={navigator.language}
         onError={() => {}}
       >
-        <StateProvider initialState={{bla: 'blub'}}>
+        <ReduxProvider initialState={{ bla: "blub" }} reducers={reducers}>
           <BrowserRouter>
             <CssBaseline />
             <Site />
           </BrowserRouter>
-        </StateProvider>
+        </ReduxProvider>
       </IntlProvider>
     </ThemeProvider>
   );

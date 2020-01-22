@@ -10,7 +10,7 @@
 const tryChangeRoute = ({route}) => state => ({...state, route});
 
 /**
- * Export all reducer factories.
+ * Export all reducers.
  */
 export default {
     tryChangeRoute,
