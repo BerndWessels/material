@@ -15,7 +15,7 @@
  *
  */
 
-//const path = require( 'path');
-//const reducerFactories = require( './src/redux/reducer-factories');
+// const path = require( 'path');
+// const reducerFactories = require( './src/redux/reducer-factories');
 
-//console.log(reducerFactories);
+// console.log(reducerFactories);

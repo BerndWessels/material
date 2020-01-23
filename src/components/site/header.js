@@ -1,19 +1,31 @@
-import React from "react";
-import { fade, makeStyles } from "@material-ui/core/styles";
+/**
+ * Dependencies
+ */
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+
+/**
+ * Components
+ */
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
-import MenuItem from "@material-ui/core/MenuItem";
+import IconButton from "@material-ui/core/IconButton";
+import InputBase from "@material-ui/core/InputBase";
+import MailIcon from "@material-ui/icons/Mail";
 import Menu from "@material-ui/core/Menu";
 import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+import MenuItem from "@material-ui/core/MenuItem";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import SearchIcon from "@material-ui/icons/Search";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+
+/**
+ * Styles
+ */
+import { fade, makeStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "./navigation";
 
 const useStyles = makeStyles(theme => ({
@@ -84,13 +96,17 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up("md")]: {
       display: "none"
     }
-  },
+  }
 }));
 
-const Header = ({onDrawerToggle}) => {
+/**
+ * Component
+ */
+const Header = ({ onDrawerToggle }) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -119,9 +135,9 @@ const Header = ({onDrawerToggle}) => {
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       id={menuId}
       keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
       onClose={handleMenuClose}
+      open={isMenuOpen}
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
@@ -190,7 +206,7 @@ const Header = ({onDrawerToggle}) => {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search… if you like"
+              placeholder="Search… if you like, hahahaha"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput
@@ -238,6 +254,10 @@ const Header = ({onDrawerToggle}) => {
       {renderMenu}
     </>
   );
+};
+
+Header.propTypes = {
+  onDrawerToggle: PropTypes.func.isRequired
 };
 
 export default Header;

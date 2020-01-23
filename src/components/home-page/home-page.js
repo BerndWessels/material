@@ -9,7 +9,7 @@ import { useRedux } from "../../providers/redux";
 /**
  * Redux
  */
-import { tryChangeRouteActionCreator } from "../../redux/action-creators.g.js";
+import { tryChangeRouteActionCreator } from "../../redux/action-creators.g";
 /**
  * Components
  */
@@ -34,8 +34,7 @@ const HomePage = () => {
   const [state, dispatch] = useRedux();
   return (
     <>
-      <p>Bernd</p>
-      <Icon>add_circle</Icon>
+      <p>Hello</p>
       <Button variant="contained" startIcon={<DeleteIcon />}>
         Default
       </Button>
@@ -46,13 +45,6 @@ const HomePage = () => {
       >
         Primary
       </Button>
-      <h2>Bernd</h2>
-      <h2>Bernd</h2>
-      <h2>Bernd</h2>
-      <h2>Bernd</h2>
-      <h2>Bernd</h2>
-      <h2>Bernd</h2>
-      <h2>Bernd is hot, really - so really man !!!</h2>
     </>
   );
 };

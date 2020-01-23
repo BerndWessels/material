@@ -1,4 +1,12 @@
+/**
+ * Dependencies
+ */
 import React from "react";
+import PropTypes from "prop-types";
+
+/**
+ * Components
+ */
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -8,6 +16,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import MailIcon from "@material-ui/icons/Mail";
+
+/**
+ * Styles
+ */
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 export const drawerWidth = 240;
@@ -25,6 +37,9 @@ const useStyles = makeStyles(theme => ({
   appBarSpacer: theme.mixins.toolbar
 }));
 
+/**
+ * Component
+ */
 const Navigation = ({ mobileOpen, onDrawerToggle }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -89,6 +104,11 @@ const Navigation = ({ mobileOpen, onDrawerToggle }) => {
       </Hidden>
     </nav>
   );
+};
+
+Navigation.propTypes = {
+  mobileOpen: PropTypes.bool.isRequired,
+  onDrawerToggle: PropTypes.func.isRequired
 };
 
 export default Navigation;

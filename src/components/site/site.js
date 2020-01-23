@@ -2,23 +2,28 @@
  * Dependencies
  */
 import React, { useState } from "react";
+
 /**
  * Hooks
  */
 import { useRedux } from "../../providers/redux";
+
 /**
  * Components
  */
 import { Route, Switch } from "react-router-dom/umd/react-router-dom";
+
 /**
  * Redux
  */
+
 /**
  * Components
  */
 import Header from "./header";
-import Navigation from "./navigation";
 import HomePage from "../home-page/home-page";
+import Navigation from "./navigation";
+
 /**
  * Styles
  */
@@ -30,10 +35,11 @@ const useStyles = makeStyles(theme => ({
   },
   main: {
     flexGrow: 1
-    //padding: theme.spacing(3)
+    // padding: theme.spacing(3)
   },
   appBarSpacer: theme.mixins.toolbar
 }));
+
 /**
  * Component
  */

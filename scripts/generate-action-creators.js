@@ -1,6 +1,8 @@
 const fs = require("fs");
 const path = require("path");
+// eslint-disable-next-line import/no-extraneous-dependencies
 const glob = require("glob");
+// eslint-disable-next-line import/no-extraneous-dependencies
 const Handlebars = require("handlebars");
 
 const source = `{{#each actions}}
@@ -14,7 +16,7 @@ export const {{this.action}}ActionCreator = payload => ({type: "{{this.action}}"
 const template = Handlebars.compile(source);
 
 const output = glob
-  .sync(path.join(__dirname, "../src/redux/reducer-factories/**/*.js"), {
+  .sync(path.join(__dirname, "../src/redux/reducers/**/*.js"), {
     ignore: "**/index.js"
   })
   .map(file => {
@@ -30,10 +32,15 @@ const output = glob
         payload: action.charAt(0).toUpperCase() + action.slice(1)
       }))
     });
-  }).join('');
+  })
+  .join("");
 
-fs.writeFile(path.resolve(__dirname, '../src/redux/action-creators.g.js'), output, err => {
+fs.writeFile(
+  path.resolve(__dirname, "../src/redux/action-creators.g.js"),
+  output,
+  err => {
     if (err) {
-        return console.error(`Autsch! Failed to store template: ${err.message}.`);
+      console.error(`Autsch! Failed to store template: ${err.message}.`);
     }
-});
+  }
+);
