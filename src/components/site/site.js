@@ -9,11 +9,6 @@ import React, { useState } from "react";
 import { useRedux } from "../../providers/redux";
 
 /**
- * Components
- */
-import { Route, Switch } from "react-router-dom/umd/react-router-dom";
-
-/**
  * Redux
  */
 
@@ -23,6 +18,7 @@ import { Route, Switch } from "react-router-dom/umd/react-router-dom";
 import Header from "./header";
 import HomePage from "../home-page/home-page";
 import Navigation from "./navigation";
+import { Route, Switch } from "react-router-dom/umd/react-router-dom";
 
 /**
  * Styles

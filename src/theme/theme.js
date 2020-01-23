@@ -1,9 +1,14 @@
-// Dependencies
+/**
+ * Dependencies
+ */
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core/styles";
 import teal from "@material-ui/core/colors/teal";
 import lime from "@material-ui/core/colors/lime";
 
-// Create the theme
+/**
+ * Create the theme
+ * @param prefersDarkMode
+ */
 const createTheme = prefersDarkMode =>
   responsiveFontSizes(
     createMuiTheme({

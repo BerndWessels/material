@@ -2,20 +2,23 @@
  * Dependencies
  */
 import React from "react";
+
 /**
  * Hooks
  */
 import { useRedux } from "../../providers/redux";
+
 /**
  * Redux
  */
 import { tryChangeRouteActionCreator } from "../../redux/action-creators.g";
+
 /**
  * Components
  */
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Icon from "@material-ui/core/Icon";
+
 /**
  * Styles
  */
@@ -26,6 +29,7 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   }
 }));
+
 /**
  * Component
  */

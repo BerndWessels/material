@@ -21,6 +21,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SearchIcon from "@material-ui/icons/Search";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import { FormattedMessage } from "react-intl";
 
 /**
  * Styles
@@ -139,8 +140,18 @@ const Header = ({ onDrawerToggle }) => {
       open={isMenuOpen}
       transformOrigin={{ vertical: "top", horizontal: "right" }}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <FormattedMessage
+          defaultMessage="Profile"
+          description="Header Profile Menu Item"
+        />
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <FormattedMessage
+          defaultMessage="My Account"
+          description="Header Profile My Account Menu Item Label"
+        />
+      </MenuItem>
     </Menu>
   );
 
