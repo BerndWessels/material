@@ -21,7 +21,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SearchIcon from "@material-ui/icons/Search";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { FormattedMessage } from "react-intl";
+import { defineMessages, FormattedMessage, useIntl } from "react-intl";
 
 /**
  * Styles
@@ -100,6 +100,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const myMessages = defineMessages({
+  hello: {
+    defaultMessage: "hello {name}",
+    description: "this is my hello"
+  },
+  welcome: {
+    defaultMessage: "Welcome!",
+    description: "this is my welcome"
+  },
+  welcome2: {
+    defaultMessage: "Welcome!",
+    description: "this is my welcome"
+  },
+  welcome3: {
+    defaultMessage: "Welcome!",
+    description: "this is my welcome 3"
+  }
+});
+
 /**
  * Component
  */
@@ -111,6 +130,22 @@ const Header = ({ onDrawerToggle }) => {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const intl = useIntl();
+  const label = intl.formatMessage({
+    defaultMessage: "Submit button",
+    description: "this is my submit"
+  });
+  const label2 = intl.formatMessage({
+    defaultMessage: "Submit button",
+    description: "this is my submit"
+  });
+  const label3 = intl.formatMessage({
+    defaultMessage: "Submit button",
+    description: "this is my submit 3"
+  });
+
+  console.log(label, label2, label3, myMessages);
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -150,6 +185,18 @@ const Header = ({ onDrawerToggle }) => {
         <FormattedMessage
           defaultMessage="My Account"
           description="Header Profile My Account Menu Item Label"
+        />
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <FormattedMessage
+          defaultMessage="My Account"
+          description="Header Profile My Account Menu Item Label"
+        />
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <FormattedMessage
+          defaultMessage="My Account"
+          description="Header Profile My Account Menu Item Label item"
         />
       </MenuItem>
     </Menu>

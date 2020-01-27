@@ -14,7 +14,7 @@
     ]
   },
   "dependencies": {
-    "@material-ui/core": "^4.8.3",
+    "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
     "prop-types": "^15.7.2",
     "ramda": "^0.26.1",
@@ -61,7 +61,8 @@
     "eject": "craco eject",
     "start": "craco start",
     "test": "craco test",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "i18n": "node ./scripts/extract-intl-messages.js"
   },
   "version": "0.1.0",
   "devDependencies": {
@@ -69,13 +70,17 @@
     "@hot-loader/react-dom": "^16.11.0",
     "@testing-library/jest-dom": "^5.0.2",
     "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^8.0.3",
+    "@testing-library/user-event": "^8.0.4",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.17.0",
+    "babel-plugin-react-intl": "^5.1.17",
+    "babel-plugin-react-intl-auto": "3.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
+    "extract-react-intl": "^0.8.1",
+    "extract-react-intl-messages": "^2.3.5",
     "handlebars": "^4.7.2",
     "prettier": "^1.19.1"
   }

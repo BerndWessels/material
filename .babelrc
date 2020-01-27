@@ -1,0 +1,28 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": [
+            "last 1 chrome version",
+            "last 1 explorer version",
+            "last 1 firefox version",
+            "last 1 safari version"
+          ]
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    [
+      "react-intl-auto",
+      {
+        "removePrefix": true,
+        "includeExportName": true,
+        "includeDescription": true
+      }
+    ]
+  ]
+}
