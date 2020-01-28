@@ -21,7 +21,7 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import SearchIcon from "@material-ui/icons/Search";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { defineMessages, FormattedMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 
 /**
  * Styles
@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   title: {
+    fontWeight: 300,
     display: "none",
     [theme.breakpoints.up("sm")]: {
       display: "block"
@@ -100,30 +101,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const myMessages = defineMessages({
-  hello: {
-    defaultMessage: "hello {name}",
-    description: "this is my hello"
-  },
-  welcome: {
-    defaultMessage: "Welcome!",
-    description: "this is my welcome"
-  },
-  welcome2: {
-    defaultMessage: "Welcome!",
-    description: "this is my welcome"
-  },
-  welcome3: {
-    defaultMessage: "Welcome!",
-    description: "this is my welcome 3"
-  }
-});
-
 /**
  * Component
  */
 const Header = ({ onDrawerToggle }) => {
   const classes = useStyles();
+  const intl = useIntl();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -131,21 +114,31 @@ const Header = ({ onDrawerToggle }) => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-  const intl = useIntl();
-  const label = intl.formatMessage({
-    defaultMessage: "Submit button",
-    description: "this is my submit"
-  });
-  const label2 = intl.formatMessage({
-    defaultMessage: "Submit button",
-    description: "this is my submit"
-  });
-  const label3 = intl.formatMessage({
-    defaultMessage: "Submit button",
-    description: "this is my submit 3"
-  });
+  const unreadMessagesCount = 5;
+  const unreadNotificationsCount = 12;
 
-  console.log(label, label2, label3, myMessages);
+  const unreadMessagesAriaLabel = intl.formatMessage(
+    {
+      defaultMessage:
+        "Show {unreadMessagesCount} unread {unreadMessagesCount, plural, one {Message} other {Messages}}",
+      description: "Header Icon - Aria Label - Unread Messages"
+    },
+    { unreadMessagesCount }
+  );
+
+  const unreadNotificationsAriaLabel = intl.formatMessage(
+    {
+      defaultMessage:
+        "Show {unreadNotificationsCount} unread {unreadNotificationsCount, plural, one {Notification} other {Notifications}}",
+      description: "Header Icon - Aria Label - Unread Notifications"
+    },
+    { unreadNotificationsCount }
+  );
+
+  const userHeaderMenuButtonAriaLabel = intl.formatMessage({
+    defaultMessage: "User",
+    description: "Header Menu Button - Aria Label - User"
+  });
 
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
@@ -178,25 +171,13 @@ const Header = ({ onDrawerToggle }) => {
       <MenuItem onClick={handleMenuClose}>
         <FormattedMessage
           defaultMessage="Profile"
-          description="Header Profile Menu Item"
+          description="Header Menu Item - Label - Profile"
         />
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>
         <FormattedMessage
-          defaultMessage="My Account"
-          description="Header Profile My Account Menu Item Label"
-        />
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <FormattedMessage
-          defaultMessage="My Account"
-          description="Header Profile My Account Menu Item Label"
-        />
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <FormattedMessage
-          defaultMessage="My Account"
-          description="Header Profile My Account Menu Item Label item"
+          defaultMessage="Account"
+          description="Header Menu Item - Label - Account"
         />
       </MenuItem>
     </Menu>
@@ -214,31 +195,48 @@ const Header = ({ onDrawerToggle }) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
+        <IconButton aria-label={unreadMessagesAriaLabel} color="inherit">
+          <Badge badgeContent={unreadMessagesCount} color="secondary">
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+        <p>
+          <FormattedMessage
+            defaultMessage="{unreadMessagesCount, plural, one {Message} other {Messages}}"
+            description="Header Menu Item - Label - Unread Messages"
+            values={{ unreadMessagesCount }}
+          />
+        </p>
       </MenuItem>
       <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+        <IconButton aria-label={unreadNotificationsAriaLabel} color="inherit">
+          <Badge badgeContent={unreadNotificationsCount} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>
+          <FormattedMessage
+            defaultMessage="{unreadNotificationsCount, plural, one {Notification} other {Notifications}}"
+            description="Header Menu Item - Label - Unread Notifications"
+            values={{ unreadNotificationsCount }}
+          />
+        </p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
-          aria-label="account of current user"
+          aria-label={userHeaderMenuButtonAriaLabel}
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>
+          <FormattedMessage
+            defaultMessage="User"
+            description="Header Menu Button - Label - User"
+          />
+        </p>
       </MenuItem>
     </Menu>
   );
@@ -251,42 +249,59 @@ const Header = ({ onDrawerToggle }) => {
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            aria-label="open drawer"
+            aria-label={intl.formatMessage({
+              defaultMessage: "Open Drawer",
+              description: "Header Button - Aria Label - Open Drawer"
+            })}
             onClick={onDrawerToggle}
           >
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            <FormattedMessage
+              defaultMessage="Application"
+              description="Header - Title"
+            />
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search… if you like, hahahaha"
+              placeholder={intl.formatMessage({
+                defaultMessage: "Search",
+                description: "Header Input - Placeholder - Search"
+              })}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
-              inputProps={{ "aria-label": "search" }}
+              inputProps={{
+                "aria-label": intl.formatMessage({
+                  defaultMessage: "Search",
+                  description: "Header Input - Aria Label - Search"
+                })
+              }}
             />
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
+            <IconButton aria-label={unreadMessagesAriaLabel} color="inherit">
+              <Badge badgeContent={unreadMessagesCount} color="secondary">
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+            <IconButton
+              aria-label={unreadNotificationsAriaLabel}
+              color="inherit"
+            >
+              <Badge badgeContent={unreadNotificationsCount} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton
               edge="end"
-              aria-label="account of current user"
+              aria-label={userHeaderMenuButtonAriaLabel}
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
@@ -297,7 +312,10 @@ const Header = ({ onDrawerToggle }) => {
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
-              aria-label="show more"
+              aria-label={intl.formatMessage({
+                defaultMessage: "Show More",
+                description: "Header Menu Button - Aria Label - Show More"
+              })}
               aria-controls={mobileMenuId}
               aria-haspopup="true"
               onClick={handleMobileMenuOpen}
