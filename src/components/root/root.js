@@ -5,6 +5,11 @@ import React, { useMemo } from "react";
 import { hot } from "react-hot-loader/root";
 
 /**
+ * Config
+ */
+import {cognitoConfig} from "../../config";
+
+/**
  * Redux
  */
 import initialState from "../../redux/initial-state";
@@ -14,6 +19,7 @@ import reducers from "../../redux/reducers";
  * Providers
  */
 import { BrowserRouter } from "react-router-dom/umd/react-router-dom";
+import { CognitoProvider } from "../../providers/cognito";
 import { IntlProvider } from "react-intl";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { ReduxProvider } from "../../providers/redux";
@@ -33,6 +39,7 @@ import createTheme from "../../theme/theme";
  */
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Site from "../site/site";
+import { Route } from "react-router-dom/umd/react-router-dom";
 
 /**
  * Component
@@ -47,12 +54,16 @@ const Root = () => {
         locale={navigator.language}
         onError={() => {}}
       >
-        <ReduxProvider initialState={initialState} reducers={reducers}>
-          <BrowserRouter>
-            <CssBaseline />
-            <Site />
-          </BrowserRouter>
-        </ReduxProvider>
+        <CognitoProvider config={cognitoConfig}>
+          <ReduxProvider initialState={initialState} reducers={reducers}>
+            <BrowserRouter>
+              <CssBaseline />
+              <Route path="/">
+                <Site />
+              </Route>
+            </BrowserRouter>
+          </ReduxProvider>
+        </CognitoProvider>
       </IntlProvider>
     </ThemeProvider>
   );

@@ -8,8 +8,8 @@ module.exports = {
       [
         "react-intl-auto",
         {
-          removePrefix: true,
-          includeExportName: true,
+          //removePrefix: true,
+          //includeExportName: true,
           includeDescription: true
         }
       ]
