@@ -3,6 +3,12 @@
  */
 import React from "react";
 import ReactDOM from "react-dom";
+
+/**
+ * AWS Amplify
+ */
+import './amplify';
+
 /**
  * Components
  */

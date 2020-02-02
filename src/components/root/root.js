@@ -5,11 +5,6 @@ import React, { useMemo } from "react";
 import { hot } from "react-hot-loader/root";
 
 /**
- * Config
- */
-import {cognitoConfig} from "../../config";
-
-/**
  * Redux
  */
 import initialState from "../../redux/initial-state";
@@ -18,8 +13,8 @@ import reducers from "../../redux/reducers";
 /**
  * Providers
  */
+import { AmplifyProvider } from "../../providers/amplify";
 import { BrowserRouter } from "react-router-dom/umd/react-router-dom";
-import { CognitoProvider } from "../../providers/cognito";
 import { IntlProvider } from "react-intl";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { ReduxProvider } from "../../providers/redux";
@@ -54,16 +49,16 @@ const Root = () => {
         locale={navigator.language}
         onError={() => {}}
       >
-        <CognitoProvider config={cognitoConfig}>
-          <ReduxProvider initialState={initialState} reducers={reducers}>
+        <ReduxProvider initialState={initialState} reducers={reducers}>
+          <AmplifyProvider>
             <BrowserRouter>
               <CssBaseline />
               <Route path="/">
                 <Site />
               </Route>
             </BrowserRouter>
-          </ReduxProvider>
-        </CognitoProvider>
+          </AmplifyProvider>
+        </ReduxProvider>
       </IntlProvider>
     </ThemeProvider>
   );

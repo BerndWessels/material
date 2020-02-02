@@ -6,7 +6,8 @@ import React, { useState } from "react";
 /**
  * Hooks
  */
-import { useRedux } from "../../providers/redux";
+import { useAmplify } from "../../providers/amplify";
+//import { useRedux } from "../../providers/redux";
 
 /**
  * Redux
@@ -15,56 +16,20 @@ import { useRedux } from "../../providers/redux";
 /**
  * Components
  */
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Fab from "@material-ui/core/Fab";
-import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import Header from "./header";
 import HomePage from "../home-page/home-page";
+import LoadingIndicator from "../loading-indicator/loading-indicator";
 import Navigation from "./navigation";
-import {
-  Redirect,
-  Route,
-  Switch,
-  useRouteMatch
-} from "react-router-dom/umd/react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom/umd/react-router-dom";
 
 /**
  * Styles
  */
 import { makeStyles } from "@material-ui/core/styles";
-import { FormattedMessage } from "react-intl";
-import {useCognito} from "../../providers/cognito";
 
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1
-  },
-  mainProgress: {
-    width: "100vh",
-    height: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  fabProgress: {
-    position: "relative"
-  },
-  circularProgress: {
-    position: "absolute",
-    top: -8,
-    left: -8,
-    zIndex: 1
-  },
-  iconProgress: {
-    animation: "$rotation 2s infinite ease-in-out"
-  },
-  "@keyframes rotation": {
-    from: {
-      transform: "rotate(0deg)"
-    },
-    to: {
-      transform: "rotate(-359deg)"
-    }
   },
   main: {
     flexGrow: 1
@@ -78,22 +43,12 @@ const useStyles = makeStyles(theme => ({
  */
 const Site = () => {
   const classes = useStyles();
-  const [state, dispatch] = useRedux();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const credentials = useCognito();
+  const isSignedIn = useAmplify();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  return credentials === null ? (
-    <main className={classes.mainProgress}>
-      <div className={classes.fabProgress}>
-        <Fab aria-label="save" color="primary" size="large">
-          <DonutLargeIcon className={classes.iconProgress} />
-        </Fab>
-        <CircularProgress size={72} className={classes.circularProgress} />
-      </div>
-    </main>
-  ) : (
+  return (
     <>
       <Header onDrawerToggle={handleDrawerToggle} />
       <Navigation mobileOpen={mobileOpen} onDrawerToggle={handleDrawerToggle} />
@@ -108,6 +63,7 @@ const Site = () => {
           </Route>
         </Switch>
       </main>
+      {!isSignedIn && <LoadingIndicator />}
     </>
   );
 };

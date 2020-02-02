@@ -4,6 +4,11 @@
 import React from "react";
 
 /**
+ * AWS Amplify
+ */
+import Auth from "@aws-amplify/auth";
+
+/**
  * Hooks
  */
 import { useRedux } from "../../providers/redux";
@@ -22,24 +27,28 @@ import DeleteIcon from "@material-ui/icons/Delete";
 /**
  * Styles
  */
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles(theme => ({
-  grow: {
-    flexGrow: 1
-  }
-}));
+// import { makeStyles } from "@material-ui/core/styles";
+//
+// const useStyles = makeStyles(theme => ({
+//   grow: {
+//     flexGrow: 1
+//   }
+// }));
 
 /**
  * Component
  */
 const HomePage = () => {
-  const classes = useStyles();
-  const [state, dispatch] = useRedux();
+  //const classes = useStyles();
+  const [, dispatch] = useRedux();
   return (
     <>
       <p>Hello</p>
-      <Button variant="contained" startIcon={<DeleteIcon />}>
+      <Button
+        variant="contained"
+        startIcon={<DeleteIcon />}
+        onClick={() => Auth.signOut()}
+      >
         Default
       </Button>
       <Button

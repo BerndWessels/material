@@ -1,5 +1,3 @@
-import assocPath from "ramda/src/assocPath";
-
 /**
  * @typedef {Object} MyFirstActionPayload
  * @property {number} age The age.
