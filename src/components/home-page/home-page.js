@@ -1,12 +1,13 @@
 /**
  * Dependencies
  */
-import React from "react";
+import React, {useEffect} from "react";
 
 /**
  * AWS Amplify
  */
 import Auth from "@aws-amplify/auth";
+import API, {graphqlOperation} from "@aws-amplify/api";
 
 /**
  * Hooks
@@ -35,6 +36,61 @@ import DeleteIcon from "@material-ui/icons/Delete";
 //   }
 // }));
 
+
+function Request() {
+    useEffect(() => {
+        let subscription;
+        setTimeout(() => {
+            console.log('subscribing');
+            subscription = API.graphql(
+                graphqlOperation(`subscription Inbox {
+    inbox(to: "Nadia") {
+        body
+        to
+        from
+        sentAt
+    }
+}`)
+            ).subscribe({
+                next: (todoData) => console.log("baba", todoData)
+            });
+        }, 5000);
+        return () => {
+            subscription.unsubscribe();
+        }
+    }, []);
+    return (
+        <>
+            <button onClick={() => {
+                API.graphql(graphqlOperation(`query {
+    me
+}
+`))
+                    .then(data => console.log(data))
+                    .catch(err => console.error(err));
+
+            }}>request
+            </button>
+            <button onClick={() => {
+                API.graphql(graphqlOperation(`mutation Page {
+    page(to: "Nadia", body: "Hello, World!") {
+        body
+        to
+        from
+        sentAt
+    }
+}`))
+                    .then(data => console.log(data))
+                    .catch(err => console.error(err));
+
+            }}>mutate
+            </button>
+            <input type="text"/>
+        </>
+    );
+}
+
+
 /**
  * Component
  */
@@ -58,6 +114,7 @@ const HomePage = () => {
       >
         Primary
       </Button>
+        <Request/>
     </>
   );
 };

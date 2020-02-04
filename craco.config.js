@@ -3,6 +3,9 @@ const { whenDev } = require("@craco/craco");
 
 module.exports = {
   babel: {
+    loaderOptions: {
+      exclude: /node_modules/
+    },
     plugins: [
       ...whenDev(() => ["react-hot-loader/babel"], []),
       [
@@ -10,7 +13,7 @@ module.exports = {
         {
           //removePrefix: true,
           //includeExportName: true,
-          includeDescription: true
+          includeDescription: true,
         }
       ]
     ]

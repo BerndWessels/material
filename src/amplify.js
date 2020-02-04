@@ -1,8 +1,10 @@
 /**
  * Dependencies
  */
+import API from "@aws-amplify/api";
 import Amplify from "@aws-amplify/core";
 import Auth from "@aws-amplify/auth";
+import "@aws-amplify/pubsub";
 
 /**
  * Configuration
@@ -30,4 +32,15 @@ Auth.configure({
     redirectSignOut: "http://localhost:3000",
     responseType: "code" // or 'token', note that REFRESH token will only be generated when the responseType is code
   }
+});
+
+API.configure({
+  "AppSync": {
+    "Default": {
+      "ApiUrl": "https://5tzwcfto4rd7jo5t4k6o3nmicy.appsync-api.us-east-1.amazonaws.com/graphql",
+      "Region": "us-east-1",
+      "AuthMode": "AWS_IAM",
+      "ClientDatabasePrefix": "graphQLApi-26c29dc_AWS_IAM"
+    }
+  },
 });
